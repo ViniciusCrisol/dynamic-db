@@ -8,3 +8,7 @@
 *.out
 *.test
 *.scannerwork
+
+# Dependency directories
+
+/src/data/*
