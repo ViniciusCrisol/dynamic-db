@@ -80,9 +80,11 @@ func setupHTTPHandlers(router *gin.Engine) {
 	apiRouter.DELETE("/clusters/:domain_name/:cluster_name", clusterHandler.DeleteCluster)
 
 	saveSchemaUsecase := usecases.NewSaveSchemaUsecase(clusterRepository, assembleClusterURLService)
-	schemaController := controllers.NewSchemaController(saveSchemaUsecase)
+	findSchemaUsecase := usecases.NewFindSchemaUsecase(clusterRepository, assembleClusterURLService)
+	schemaController := controllers.NewSchemaController(saveSchemaUsecase, findSchemaUsecase)
 	schemaHandler := handlers.NewSchemaHandler(schemaController)
 	apiRouter.POST("/schemas/:domain_name/:cluster_name", schemaHandler.SaveSchema)
+	apiRouter.GET("/schemas/:domain_name/:cluster_name", schemaHandler.FindSchema)
 }
 
 func listenToHTTPRequests(routerHTTP *gin.Engine) {

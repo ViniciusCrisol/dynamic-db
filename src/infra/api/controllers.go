@@ -7,6 +7,7 @@ import (
 
 type SchemaController interface {
 	SaveSchema(saveSchemaDTO controllerDTOs.SaveSchema) (*entities.Schema, error)
+	FindSchema(findSchemaDTO controllerDTOs.FindSchema) ([]*entities.Schema, error)
 }
 
 type DomainController interface {

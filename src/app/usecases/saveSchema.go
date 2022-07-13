@@ -25,7 +25,6 @@ func NewSaveSchemaUsecase(
 
 func (ucs *saveSchemaUsecase) Execute(domainName, clusterName string, schemaContent entities.SchemaContent) (*entities.Schema, error) {
 	clusterURL := ucs.assembleClusterURLService.Execute(domainName, clusterName)
-
 	clusterExists := ucs.clusterRepository.ClusterExists(clusterURL)
 	if !clusterExists {
 		return nil, errors.New("cluster-does-not-exists")

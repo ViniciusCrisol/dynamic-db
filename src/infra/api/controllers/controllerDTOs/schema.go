@@ -7,3 +7,9 @@ type SaveSchema struct {
 	ClusterName   string
 	SchemaContent entities.SchemaContent
 }
+
+type FindSchema struct {
+	DomainName    string
+	ClusterName   string
+	SchemaToMatch entities.SchemaContent
+}

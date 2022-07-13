@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"github.com/ViniciusCrisol/dynamic-db/app/entities"
 	"github.com/ViniciusCrisol/dynamic-db/infra/api"
 	"github.com/ViniciusCrisol/dynamic-db/infra/api/controllers/controllerDTOs"
 	"github.com/ViniciusCrisol/dynamic-db/infra/api/handlers/handlerDTOs"
@@ -36,4 +37,26 @@ func (handler *schemaHandler) SaveSchema(context *gin.Context) {
 		return
 	}
 	middlewares.SendJSON(200, schema, context)
+}
+
+func (handler *schemaHandler) FindSchema(context *gin.Context) {
+	domainName := context.Param("domain_name")
+	clusterName := context.Param("cluster_name")
+
+	schemaToMatch := entities.SchemaContent{}
+	for field, values := range context.Request.URL.Query() {
+		valueToMatch := values[0]
+		schemaToMatch[field] = valueToMatch
+	}
+
+	schemas, saveSchemaErr := handler.schemaController.FindSchema(controllerDTOs.FindSchema{
+		DomainName:    domainName,
+		ClusterName:   clusterName,
+		SchemaToMatch: schemaToMatch,
+	})
+	if saveSchemaErr != nil {
+		middlewares.HandleErr(saveSchemaErr, context)
+		return
+	}
+	middlewares.SendJSON(200, schemas, context)
 }
