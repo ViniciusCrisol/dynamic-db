@@ -30,12 +30,11 @@ func (ucs *saveDomainUsecase) Execute(domainName string) (*entities.Domain, erro
 		return nil, errors.New("domain-already-exists")
 	}
 
-	saveDomainErr := ucs.domainRepository.SaveDomain(domainURL)
+	domain := entities.NewDomain(domainName, domainURL)
+	saveDomainErr := ucs.domainRepository.SaveDomain(domain.DomainURL)
 	if saveDomainErr != nil {
 		utils.ErrorLogger.Println(saveDomainErr)
 		return nil, saveDomainErr
 	}
-
-	domain := entities.NewDomain(domainName, domainURL)
 	return domain, nil
 }

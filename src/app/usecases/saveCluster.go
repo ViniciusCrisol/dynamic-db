@@ -30,12 +30,11 @@ func (ucs *saveClusterUsecase) Execute(domainName, clusterName string) (*entitie
 		return nil, errors.New("cluster-already-exists")
 	}
 
-	saveClusterErr := ucs.clusterRepository.SaveCluster(clusterURL, nil)
+	cluster := entities.NewCluster(domainName, clusterName, clusterURL)
+	saveClusterErr := ucs.clusterRepository.SaveCluster(cluster.ClusterURL, nil)
 	if saveClusterErr != nil {
 		utils.ErrorLogger.Println(saveClusterErr)
 		return nil, saveClusterErr
 	}
-
-	cluster := entities.NewCluster(domainName, clusterName, clusterURL)
 	return cluster, nil
 }
