@@ -4,7 +4,7 @@
 
 ### Proposta do Projeto
 
-Em suma, este projeto foi criado com o intuito de oferecer uma alternativa mais enxuta aos bancos de dados orientados a objetos.
+Em suma, este projeto foi criado com o intuito de estudar o funcionamento de bancos de dados orientados a objetos.
 
 ### Informações técnicas
 
